@@ -15,6 +15,7 @@ int main(){
 
     cout<<"Original Stack: \n";
     myStack.printMine();
+    cout<<endl<<"Inverted Stack: \n";
     myStack.reverseOrder();
     myStack.printMine();
 }

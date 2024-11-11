@@ -80,7 +80,7 @@ void Stack<T>:: printMine(){
         Node<T>* actual=head;   //crea actual
         cout<<actual<<endl;     //imprime cabecera
         while(actual!=nullptr){ //mientras no se haya llegado al fin de la pila 
-                actual->print();        //imprime 
+                cout<<"Data: "<<actual->getData()<<endl;        //imprime 
                 actual=actual->getNext();       // y mueve a next
         }
 }
