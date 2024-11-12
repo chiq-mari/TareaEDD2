@@ -35,9 +35,9 @@ void Node<T>::setNext(Node<T>* next){
     this->next = next;
 }
 
-template<class T>
+template<class T>       //no esta imprimiendo la direccion del siguiente nodo
 void Node<T>::print(){
-   cout<<"Data:"<<this->data<<endl;
-   cout<<"Direccion del siguiente: "<<this->next<<endl;
+   this->data.printPerson();
+   cout<<endl;
 }
 

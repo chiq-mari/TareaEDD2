@@ -1,5 +1,6 @@
 #include<iostream>
 #include "./queue.h"
+#include "../Person/Person.cpp"
 
 using namespace std;
 
@@ -39,7 +40,7 @@ void Queue<T>::push(T data){
         if(isEmpty()){  // si estaba vacio, head y tail van a apuntar al nuevo
                 head = node;
                 tail = node;
-                length++; //BUGFIX
+                this->length++; //BUGFIX
                 return;
         }
         this->tail->setNext(node);      //hace que ultimo apunte al nodo nuevo
@@ -71,9 +72,9 @@ T Queue<T>::pop(){
         return data;    //retorna el dato
 }
 
+/// no se usa en main con T=person
 template<class T>       //imprime elementos y los elimina
 void Queue<T>::print(){
-
       while(!isEmpty()) {
        std::cout<<pop()<<endl;
       }
@@ -91,15 +92,73 @@ void Queue<T>:: printMine(){
             return;
         }
         Node<T>* actual= head;
-        cout<<actual<<endl;
+        int j=1;
         while(actual!=nullptr){
-            cout<<actual->getData()<<endl;
+            cout<<"Dato "<<j<<endl;
+            actual->getData().printPerson();
+            cout<<endl;
             actual=actual->getNext();
+            j++;
         }
 }
 
-//constructor por defecto para dar valor por default a los elementos del array inicializada
+//////////////////////added in p2/hwk
+
 template<class T>
 Queue<T>::Queue(){
-        //nada
+        this->head = nullptr;
+        this-> tail = nullptr;
+        this-> length = 0;
+}
+
+template<class T>
+char Queue<T>:: getHighestPrio(){    //obtiene el dato de tipo T1 (la primera prioridad a procesar)
+        char priority;
+        Node<T>* actual=head;
+        if(isEmpty()){  // si esta vacia, no hay nada que priorizar
+            cout<<"Queue is empty\n";
+            return priority;
+        }
+        //si no esta vacia recorrer empezando desde head
+        priority=this->head->getData().getLastNameInitial();    //toma la prioridad de head
+        while(actual!= nullptr){
+                if(priority>actual->getData().getLastNameInitial()){    //si encuentra una prioridad menor la sutituye
+                    priority= actual->getData().getLastNameInitial();  
+                }
+                actual=actual->getNext();       //rueda actual
+        }
+        return priority;
+}
+
+/* pushea en queueForPrio data con la prioridad dada y deja el resto en la cola actual
+*/
+template<class T>
+void Queue<T>::queueWithPrio(char prioTested, Queue<T>& queueForPrio){
+        Node<T>* actual= this->head;    
+        int lengthNow= this->getLength();       //obtiene longitud de cola actual
+
+        for(int i=0; i<lengthNow; i++){         
+                actual=this->head;      //se ubica en la cabeza
+                if(actual->getData().getLastNameInitial()==prioTested){ //si esta en la prioridad dada pushear a queueForPrio
+                        queueForPrio.push(actual->getData());
+                }else{
+                        this->push(actual->getData());  //sino a mi mismo
+                }
+                this->pop();    //elimina la cabeza y va con el siguiente
+        }
+}
+
+
+template<class T>
+void Queue<T>:: processByPriority(){   //imprime de acuerdo a prioridad
+        if(isEmpty()){  //si se esta vacio no hay nada que procesar
+            return;
+        }
+        char priority;
+        Queue<T> queueForPrio;
+        while(isEmpty()==0){ //hasta que la lista este vacia
+                priority=this->getHighestPrio();        //obtener prioridad
+                queueWithPrio(priority, queueForPrio);  //insertar elementos de tal prioridad en la cola nueva y dejar el resto en mi
+        }
+        queueForPrio.printMine();
 }
