@@ -49,12 +49,12 @@ void NodeL<T, Q>::print(){  // cuando se invoca el print de un nodo, resulta en 
 */
 
 template<class T, class Q>
-void NodeL<T, Q>:: printPrio(){
-    cout<<"Priority: "<<this->priority<<endl;
+void NodeL<T, Q>:: printNodeList(){
+    cout<<"Priority: "<<this->priority<<endl<<"------------"<<"\n";
     cola.printMine();
 } 
 
 template<class T, class Q>
-Queue<Q>  NodeL<T, Q>::getCola(){
-    return this->cola;
+Queue<Q>*  NodeL<T, Q>::getCola(){
+    return &cola;
 }

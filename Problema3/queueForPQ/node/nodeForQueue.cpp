@@ -1,11 +1,12 @@
 #include<iostream>
-#include "nodeForQueue.h"
+#include ".\nodeForQueue.h"
 using namespace std;
 //same template as in classN4
 
 template<class T>   //added in p3 hwk
 NodeQ<T> :: NodeQ(){
-
+    this->next=nullptr;
+    //data del nodo cola se va por defecto
 }
 
 template<class T>
@@ -39,8 +40,8 @@ void NodeQ<T>::setNext(NodeQ<T>* next){
 }
 
 template<class T>
-void NodeQ<T>::print(){           //impresion de un nodo --> da
-   cout<<"Data:"<<this->data<<endl;                      //dato
-   cout<<"Direccion del siguiente: "<<this->next<<endl; // direccion del sig hasta llegar a la cola
+void NodeQ<T>::print(){           //impresion de un nodo --> da el dato en cola
+    //cout<<"Data:\n";
+   cout<<this->data<<endl;                      
 }
 

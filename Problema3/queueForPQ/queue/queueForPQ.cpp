@@ -8,12 +8,12 @@ template<class T>
 bool Queue<T>::isEmpty(){
     return this->head==NULL;
 }
-//constructor por defecto para dar valor por default a los elementos del array inicializada
+//constructor por defecto para dar valor por default
 template<class T>
 Queue<T>::Queue(){
-    NodeQ<T>* head = nullptr;
-    NodeQ<T>* tail = nullptr;
-    int length = 0;
+    this->head = nullptr;
+    this->tail = nullptr;
+    this->length = 0;
 }
 
 
@@ -46,7 +46,6 @@ Queue<T>::~Queue(){
 // 4. Aumentar el contador de la cola
 template<class T>
 void Queue<T>::push(T data){
-
         NodeQ <T> *node = new NodeQ<T>(data,nullptr);
         if(isEmpty()){
                 head = node;
@@ -75,8 +74,8 @@ T Queue<T>::pop(){
             cout<<"No se pueden remover elementos de una cola vacia\n";
             return data;
         } 
-        NodeQ <T> *node = head;
-        head=head->getNext();
+        NodeQ <T> *node = head; //temp->head
+        head=head->getNext();   
         data = node->getData();
        
         delete node;
@@ -107,9 +106,10 @@ void Queue<T>:: printMine(){
             return;
         }
         NodeQ<T>* actual= head;
+        cout<<"Queue:\n";
         //cout<<actual<<endl;
         while(actual!=nullptr){
-            cout<<actual->getData()<<endl;
+            actual->print();
             actual=actual->getNext();
         }
 }

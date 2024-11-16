@@ -4,17 +4,18 @@
 using namespace std;
 
 template<class T, class Q>
-List<T, Q>::List(NodeL<T, Q>* node){ //constructor inicializaba la cabeza a apuntar a un objeto del tipo nodo
+ListPQ<T, Q>::ListPQ(T priority, NodeL<T, Q>* next){ //constructor inicializaba la cabeza a apuntar a un objeto del tipo nodo
+    NodeL<T, Q>* node= new NodeL<T, Q>(priority, next);
     this->head=node;
 }
 
 template<class T, class Q>
-bool List<T, Q>::isEmpty(){
-    return this->head == nullptr;   //si senala a nulo
+bool ListPQ<T, Q>::isEmpty(){
+   return this->head == nullptr;   //si senala a nulo
 }
 
 template<class T, class Q>
-void List<T, Q>::insertFirst(T priority){ //inserta prioridad
+void ListPQ<T, Q>::insertFirst(T priority){ //inserta prioridad
     if(isEmpty()){
         this->head = new NodeL<T, Q>(priority,nullptr);  //vacio --> da a head espacio nuevo e inicializa
         return;
@@ -25,7 +26,7 @@ void List<T, Q>::insertFirst(T priority){ //inserta prioridad
 }
 
 template<class T, class Q> // al crear el nodo a insertar, el stack lo hace por default vacio
-void List<T, Q>::insert(T priority){
+void ListPQ<T, Q>::insert(T priority){
     if(isEmpty() || priority<head->getPriority()){
        insertFirst(priority);
        this->length++;     // si no se anade, no cuenta dicho elemento  
@@ -40,7 +41,6 @@ void List<T, Q>::insert(T priority){
          prev = actual;
          actual = actual->getNext();
     }
-      
     newNode->setNext(prev->getNext());
     prev->setNext(newNode);
     this->length++;
@@ -48,7 +48,7 @@ void List<T, Q>::insert(T priority){
 
 //se puede usar al hacer pop en un queue de 1 elemento
 template<class T, class Q>
-bool List<T, Q>::remove(T priority){   //se supone que cuando se desee remover un nodo
+bool ListPQ<T, Q>::remove(T priority){   //se supone que cuando se desee remover un nodo
 // es decir una prioridad, ya su queue debe estar vacia
    if(isEmpty()){
       return false;
@@ -59,7 +59,7 @@ bool List<T, Q>::remove(T priority){   //se supone que cuando se desee remover u
    NodeL<T, Q>* prev=nullptr;
 
    
-   while (NodeToDelete!=nullptr && NodeToDelete->getData()!=data)
+   while (NodeToDelete!=nullptr && NodeToDelete->getPriority()!=priority)
    {
       prev=NodeToDelete;
       NodeToDelete=NodeToDelete->getNext();
@@ -151,11 +151,11 @@ bool List<T>::update(int n, T data){   //posicion en la que se actualiza
 */
 //--------------------
 template<class T, class Q>
-void List<T, Q>::print(){
+void ListPQ<T, Q>::printMine(){
     NodeL<T, Q>* actual = head;
     while (actual != nullptr)
     {
-       actual->printPrio();
+       actual->printNodeList();
        actual = actual->getNext();
        cout<<endl;
     }   
@@ -183,15 +183,15 @@ bool List<T>::update(int n, T data){   //posicion en la que se actualiza
 //added in p3 hwk
 
 template<class T, class Q>
-List<T, Q>::List(){
+ListPQ<T, Q>::ListPQ(){
    this->head=nullptr;
    length=0;
 }
 
 
 template<class T, class Q>
-NodeL<T, Q>* List<T, Q>:: findPrio(T priority){
-   NodeL<T, Q>* actual= this->head;
+NodeL<T, Q>* ListPQ<T, Q>:: findPrio(T priority){
+   NodeL<T, Q>* actual= head;
    while(actual!= nullptr && actual->getPriority()!=priority){
       actual=actual->getNext();
    }
