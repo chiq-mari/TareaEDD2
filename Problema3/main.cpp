@@ -14,22 +14,15 @@ int main(){
     miColaDePrioridad.push(4, 'a');
     miColaDePrioridad.push(-1, 'a');
 
-    miColaDePrioridad.printByPrio('d');
-
+    cout<<"Prueba push: \n";
     miColaDePrioridad.printAllQueue();
 
     miColaDePrioridad.pop('a');
     miColaDePrioridad.pop('c');
-
-    cout<<"cola de prioridad:\n";
-
-    miColaDePrioridad.printAllQueue();
-
     miColaDePrioridad.pop('b');
     miColaDePrioridad.pop('a');
-    miColaDePrioridad.pop('a');
 
-    cout<<"cola de prioridad:\n";
+    cout<<"Prueba pop: \n";
     miColaDePrioridad.printAllQueue();
 
 }

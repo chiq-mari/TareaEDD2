@@ -153,11 +153,11 @@ bool List<T>::update(int n, T data){   //posicion en la que se actualiza
 template<class T, class Q>
 void ListPQ<T, Q>::printMine(){
     NodeL<T, Q>* actual = head;
+    cout<<"Cola de Prioridad\n\n";
     while (actual != nullptr)
     {
        actual->printNodeList();
        actual = actual->getNext();
-       cout<<endl;
     }   
 }
 //----------------------

@@ -106,7 +106,6 @@ void Queue<T>:: printMine(){
             return;
         }
         NodeQ<T>* actual= head;
-        cout<<"Queue:\n";
         //cout<<actual<<endl;
         while(actual!=nullptr){
             actual->print();
